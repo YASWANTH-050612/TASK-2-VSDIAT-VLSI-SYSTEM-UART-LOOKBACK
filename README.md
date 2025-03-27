@@ -1,66 +1,75 @@
 # TASK-2-VSDIAT-VLSI-SYSTEM-UART-LOOKBACK
 
-# UART Loopback System – Block Diagram Design
+# UART Loopback Task Documentation
 
-### 1. Introduction
-I worked on a UART loopback system to check if data sent from a device is correctly received back by the same device. The system includes a **FPGA**, a **UART Transmitter**, a **UART Receiver**, and a **Serial Terminal**. I created a block diagram to show how these components interact and how data flows between them.
+## Task Overview
 
-### 2. Objective
-The goal was to design a block diagram that shows:
-- How the different parts of the UART loopback system work together.
-- How data moves through the system from one component to another.
+In this task, I worked with the VSDSquadron FPGA Mini to implement and test a UART loopback functionality. The goal was to send data from the terminal to the FPGA and receive the same data back, confirming that the loopback feature was working as expected.
 
-### 3. Components Involved
-The system has these main components:
-- **FPGA (or Microcontroller):** This is the main controller that handles everything, including the loopback process.
-- **UART Transmitter:** It sends data from the FPGA to an external device, like a serial terminal.
-- **UART Receiver:** It receives the data sent back from the serial terminal to the FPGA.
-- **Serial Terminal (Software):** This is a program on the computer that communicates with the FPGA through UART.
+---
 
-### 4. Steps to Create the Block Diagram
+## 1. Study the Existing Code
 
-#### 4.1 Identifying Key Components:
-I started by identifying the key components involved in the system: FPGA, UART Transmitter, UART Receiver, and Serial Terminal.
+- **Objective**: I started by accessing the `uart_loopback` project from the VSDSquadron_FM repository.
+- **Action**: I carefully reviewed the Verilog code to understand how the loopback logic was implemented. It was important to see how the data was being transmitted and received in the system.
 
-#### 4.2 Defining Inputs and Outputs:
-Then, I figured out what the inputs and outputs would be:
-- **Inputs:** Data coming from the serial terminal to the FPGA.
-- **Outputs:** Data sent back from the FPGA to the serial terminal.
-
-#### 4.3 Choosing a Tool:
-I used **Draw.io** (a free online tool) to create the block diagram. It's simple and provides all the shapes I needed to represent the components.
-
-#### 4.4 Creating the Blocks:
-I made blocks for each of the components and labeled them. Each block represents a part of the system, like the FPGA or the UART Transmitter.
-
-#### 4.5 Connecting the Blocks:
-I drew arrows between the blocks to show how the data moves:
-- From the **Serial Terminal** to the **UART Transmitter** (FPGA).
-- From the **UART Receiver** back to the **FPGA**.
-
-#### 4.6 Labeling the Connections:
-I labeled the connections to make it clear:
-- **Data Out**: From FPGA to UART Transmitter.
-- **Data In**: From UART Receiver to FPGA.
-- I also labeled the data lines as **TX Data** and **RX Data**.
-
-### 5. Example Block Diagram Explanation
-
-The block diagram looks something like this:
-
-Serial Terminal → UART Transmitter (FPGA) → UART Receiver (FPGA) → Serial Terminal.
+---
 
 
-- **Data Flow:** The **Serial Terminal** sends data to the FPGA, which then transmits it via the **UART Transmitter**. The **UART Receiver** receives the data back, which goes back to the **Serial Terminal**.
+## 2. Implementation
 
-### 6. Tools Used
-I used **Draw.io** to create the block diagram. It's an easy-to-use, free tool that I found perfect for this task. Other tools like **Lucidchart** or **Microsoft Visio** could also work, but I found **Draw.io** to be the most convenient.
+### Setting up the Hardware:
 
-### 7. Conclusion
+I set up the hardware as per the circuit diagram. It was crucial to ensure that all connections were correctly made before moving forward with the flashing process.
 
-By creating the block diagram, I was able to better understand how the components of the UART loopback system work together. It was helpful to visualize the data flow and make sure everything is connected correctly. Using **Draw.io** made the process easier, and now I have a clear diagram showing how the system operates.
+### Flashing the FPGA:
+
+Once the hardware setup was complete, I used the following commands to build and flash the code to the FPGA:
 
 
-### How I know : 
+cd VSDSquadron_FM/uart_lookback
+make clean
+make build
+sudo make flash
 
-I reffered CHATGPT and Youtube for edocumenting such this this
+
+---
+
+## 3. Documentation
+
+I compiled all of the steps I followed into this report. This includes the following:
+
+### Block Diagram
+
+- When I created the block diagram, it helped me visualize how the entire UART loopback system would work. The diagram clearly shows how data flows from the terminal (my computer) to the FPGA, and how the FPGA processes and sends it back. I connected the **TX** (transmit) pin of the FPGA directly to the **RX** (receive) pin, which forms the core of the loopback. This configuration allows the data sent from the FPGA to be immediately received by it, completing the loop. I had to double-check the connections to make sure the loopback was set up correctly, as it was the foundation of the whole testing process. Without this clear layout, I wouldn't have been able to proceed smoothly with the hardware setup.
+
+![Block Diagram](path_to_block_diagram_image.png)
+
+### Circuit Diagram
+
+- The circuit diagram was essential for the hardware setup. It showed me exactly how to wire the FPGA’s **TX** and **RX** pins to the corresponding serial interface. Once I reviewed the circuit diagram, I was confident that the physical setup matched the logic outlined in the block diagram. I used this to double-check that all the wiring was correct before proceeding with the code upload. This step was crucial because if any connection was wrong, the loopback wouldn’t work, and I could face issues later during testing. The circuit diagram gave me a clear roadmap of the connections I needed to make, and it was a great reference during the physical setup.
+
+![Circuit Diagram](path_to_circuit_diagram_image.png)
+
+### Explanations of the Code
+
+- The Verilog code was designed to handle the UART communication—sending data from the terminal to the FPGA and back. Initially, I spent some time going through the code to make sure it was implemented correctly. I checked that the **TX** and **RX** pins on the FPGA were properly connected in the code so the data could be sent out and received back without issues. The key part of the code was ensuring that the FPGA knew when to send data and when to wait for incoming data on the **RX** pin. Additionally, I made sure the timing and synchronization in the code were correct, which is crucial for any UART communication to function reliably. After a few tweaks, I was able to make sure everything was in order before flashing the code to the FPGA. This was the trickiest part, but also the most rewarding once I confirmed everything worked.
+
+### Test Results Showing the Loopback Functionality in Action
+
+- When I finally tested the loopback, I felt a sense of accomplishment. I opened **PuTTY** and sent some test data from the terminal to the FPGA. After hitting send, I anxiously waited to see if the same data would come back to the terminal. When the exact data appeared on the terminal screen, I immediately knew that the loopback was working. The data sent from the terminal matched exactly with the data that came back from the FPGA, confirming that the loopback functionality was functioning as expected. This was the moment when everything came together: the block diagram, circuit diagram, and code all lined up, and the system worked perfectly. It was a big win, and I was excited to see everything in action!
+
+---
+
+## 4. Recording
+- Here’s a video demonstrating the UART loopback functionality I tested:
+
+[Video Link or Embed]
+
+---
+
+## 5. Conclusion
+
+- The UART loopback test was a success! I was able to send data from the terminal to the FPGA and receive the exact same data back. This confirmed that the loopback functionality works as expected.
+- Overall, the project was a valuable learning experience. From reviewing the code, setting up the hardware, to finally testing the system, I gained a better understanding of UART communication and how to implement loopback functionality effectively.
+
