@@ -80,6 +80,7 @@ I compiled all of the steps I followed into this report. This includes the follo
 
 - But I have the screenshot of the output as red colour led which we should do in the terminal.
 
-  ![image](https://github.com/user-attachments/assets/61ef9b75-ca67-4f98-b6c8-073c318e49fc)
+![20250327_220925](https://github.com/user-attachments/assets/0c7962e5-95d4-42f5-9162-465b7284bf01)
+
 
   May be same work will be done again on Task - 3 .....
