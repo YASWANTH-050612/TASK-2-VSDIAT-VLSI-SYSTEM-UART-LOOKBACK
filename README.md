@@ -43,13 +43,13 @@ I compiled all of the steps I followed into this report. This includes the follo
 
 - When I created the block diagram, it helped me visualize how the entire UART loopback system would work. The diagram clearly shows how data flows from the terminal (my computer) to the FPGA, and how the FPGA processes and sends it back. I connected the **TX** (transmit) pin of the FPGA directly to the **RX** (receive) pin, which forms the core of the loopback. This configuration allows the data sent from the FPGA to be immediately received by it, completing the loop. I had to double-check the connections to make sure the loopback was set up correctly, as it was the foundation of the whole testing process. Without this clear layout, I wouldn't have been able to proceed smoothly with the hardware setup.
 
-![Block Diagram](path_to_block_diagram_image.png)
+
 
 ### Circuit Diagram
 
 - The circuit diagram was essential for the hardware setup. It showed me exactly how to wire the FPGA’s **TX** and **RX** pins to the corresponding serial interface. Once I reviewed the circuit diagram, I was confident that the physical setup matched the logic outlined in the block diagram. I used this to double-check that all the wiring was correct before proceeding with the code upload. This step was crucial because if any connection was wrong, the loopback wouldn’t work, and I could face issues later during testing. The circuit diagram gave me a clear roadmap of the connections I needed to make, and it was a great reference during the physical setup.
 
-![Circuit Diagram](path_to_circuit_diagram_image.png)
+
 
 ### Explanations of the Code
 
@@ -62,9 +62,8 @@ I compiled all of the steps I followed into this report. This includes the follo
 ---
 
 ## 4. Recording
-- Here’s a video demonstrating the UART loopback functionality I tested:
+-it was in another file
 
-[Video Link or Embed]
 
 ---
 
